@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Pistol : Gun
 {
-	public override void Shoot() {
-		if (_currentBulletCount <= 0) {
+	public override void Shoot()
+	{
+		if (_currentBulletCount <= 0)
+		{
 			return;
 		}
+
+		Debug.Log("Shoot");
 		GameObject bullet = Instantiate(BulletPrefab, transform.position, transform.rotation, BulletContainer);
 		bullet.GetComponent<BasicBullet>().SetOwner(this);
 		_currentBulletCount--;

@@ -50,6 +50,7 @@ public class Character : Actor, IMoveable
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
         if (Input.GetKeyDown(_gunSlot3)) SwitchGuns(2);
+ 
     }
 
     #region IMOVEABLE_PROPERTIES

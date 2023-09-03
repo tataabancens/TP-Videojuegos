@@ -449,6 +449,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373696029}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &505970184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 505970185}
+  m_Layer: 0
+  m_Name: BulletContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &505970185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 505970184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.7026245, y: -3.8590243, z: 3.8732212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &623176098
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1364,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028354002}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
@@ -1431,7 +1462,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056103573}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
@@ -1494,6 +1525,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5488491759757203774, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 7767193796572049725, guid: 736fa33588017cc42ab2538296631944, type: 3}
+    - target: {fileID: 5488491759757203774, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _bulletContainer
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5488491760492374849, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1554,10 +1593,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 5488491760492374861, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _guns.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488491760492374861, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _guns.Array.data[0]
+      value: 
+      objectReference: {fileID: 8838176122008296038, guid: 58faf453c5a8d2b419f11fea381ac596, type: 3}
+    - target: {fileID: 5488491760492374861, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _guns.Array.data[1]
+      value: 
+      objectReference: {fileID: 7258897265477975116, guid: 1b6cbbd2f2b4d014983f91c138cfd37f, type: 3}
+    - target: {fileID: 5488491760492374861, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _guns.Array.data[2]
+      value: 
+      objectReference: {fileID: 6625547865136689952, guid: 188ce3c501a41f649b295d7bf0eace8c, type: 3}
     - target: {fileID: 5488491760492374862, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: 637f792a0e0c0db4cbe41749e2580638, type: 2}
+    - target: {fileID: 5488491761021227003, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _bulletContainer
+      value: 
+      objectReference: {fileID: 505970185}
+    - target: {fileID: 5488491761202085784, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _bulletContainer
+      value: 
+      objectReference: {fileID: 505970185}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
 --- !u!1001 &8636125214767877715
