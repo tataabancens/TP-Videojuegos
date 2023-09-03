@@ -8,6 +8,8 @@ public class Pistol : Gun
 		if (_currentBulletCount <= 0) {
 			return;
 		}
-		Instantiate(BulletPrefab, transform.position, transform.rotation, BulletContainer);
+		GameObject bullet = Instantiate(BulletPrefab, transform.position, transform.rotation, BulletContainer);
+		bullet.GetComponent<BasicBullet>().SetOwner(this);
+		_currentBulletCount--;
 	}
 }

@@ -12,7 +12,8 @@ public class Machingun : Gun
 		}
 
 		for (int i = 0; i < _bulletPerShot; i++) {
-			Instantiate(BulletPrefab, transform.position + Vector3.forward * i * .6f, transform.rotation, BulletContainer);
+			GameObject bullet = Instantiate(BulletPrefab, transform.position + Vector3.forward * i * .6f, transform.rotation, BulletContainer);
+			bullet.GetComponent<BasicBullet>().SetOwner(this);
 			_currentBulletCount--;
 		}
 	}

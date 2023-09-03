@@ -4,18 +4,16 @@ using UnityEngine;
 
 public interface IBullet
 {
-	int Damage {
-		get;
-	}
 
-	float Lifetime {
-		get;
-	}
+    float Lifetime { get; }
+    IGun Owner { get;  }
+    float Speed { get; }
 
-	float Speed {
-		get;
-	}
+    Collider Collider { get; }
+    Rigidbody RB { get; }
 
-	void Travel();
-	void Die();
+    void Init();
+    void Travel();
+    void Die();
+    void SetOwner(IGun owner);
 }

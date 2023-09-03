@@ -12,10 +12,12 @@ public class Shotgun : Gun
 		}
 
 		for (int i = 0; i < _bulletPerShot; i++) {
-			Instantiate(BulletPrefab,
+			GameObject bullet = Instantiate(BulletPrefab,
 				transform.position + Random.insideUnitSphere * 1, 
 				transform.rotation, 
 				BulletContainer);
+			
+			bullet.GetComponent<BasicBullet>().SetOwner(this);
 		}
 		_currentBulletCount--;
 	}
