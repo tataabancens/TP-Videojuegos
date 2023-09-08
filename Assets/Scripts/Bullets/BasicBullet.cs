@@ -9,13 +9,13 @@ public class BasicBullet : MonoBehaviour, IBullet
 	[SerializeField] private float _lifetime = 3f;
 	[SerializeField] private float _speed = 3f;
 	[SerializeField] private LayerMask _hittableMask;
-	private Collider _collider;
-	private Rigidbody _rigidbody;
+	protected Collider _collider;
+	protected Rigidbody _rigidbody;
 	private IGun _owner;
 	#endregion
 
 	#region UNITY_METHODS
-	void Start()
+	protected void Start()
 	{
 		_collider = GetComponent<Collider>();
 		_rigidbody = GetComponent<Rigidbody>();
@@ -23,7 +23,7 @@ public class BasicBullet : MonoBehaviour, IBullet
 	}
 	void Update()
 	{
-		Travel();
+		// Travel();
 
 		_lifetime -= Time.deltaTime;
 		if (_lifetime < 0) Die();
@@ -55,9 +55,10 @@ public class BasicBullet : MonoBehaviour, IBullet
 
 	public void Init()
 	{
-		_collider.isTrigger = true;
-		_rigidbody.isKinematic = true;
-		_rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+		// _collider.isTrigger = true;
+		_rigidbody.useGravity = false;
+		_rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+		_rigidbody.AddForce(Vector3.forward * Speed, ForceMode.Impulse);
 	}
 
 	public void Travel() => transform.position += Vector3.forward * Time.deltaTime * _speed;

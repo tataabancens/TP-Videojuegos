@@ -8,6 +8,7 @@ public interface IGun
     int Damage { get; }
     int AmmoCapacity { get; }
     Transform BulletContainer { get; }
+    Transform AttackPoint { get;  }
     void Shoot();
     void Reload();
 
