@@ -50,7 +50,12 @@ public class Character : Actor, IMoveable
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
         if (Input.GetKeyDown(_gunSlot3)) SwitchGuns(2);
- 
+
+        //end game conditions
+        if (Input.GetKeyDown(KeyCode.Return)) EventsManager.instance.EventGameOver(true);
+        if (Input.GetKeyDown(KeyCode.Backspace)) TakeDamage(25);
+
+
     }
 
     #region IMOVEABLE_PROPERTIES
