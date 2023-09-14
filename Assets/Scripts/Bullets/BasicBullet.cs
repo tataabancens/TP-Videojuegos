@@ -33,7 +33,7 @@ public class BasicBullet : MonoBehaviour, IBullet
 	{
 		if (((1 << other.gameObject.layer) & _hittableMask) != 0)
 		{
-			other.GetComponent<Actor>()?.TakeDamage(_owner.Damage);
+			other.GetComponent<Actor>()?.TakeDamage(_owner.Stats.Damage);
 			Die();
 		}
 	}
@@ -58,9 +58,9 @@ public class BasicBullet : MonoBehaviour, IBullet
 		// _collider.isTrigger = true;
 		_rigidbody.useGravity = false;
 		_rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-		_rigidbody.AddForce(Vector3.forward * Speed, ForceMode.Impulse);
+		_rigidbody.AddForce(transform.forward * Speed, ForceMode.Impulse);
 	}
 
-	public void Travel() => transform.position += Vector3.forward * Time.deltaTime * _speed;
+	public void Travel() => transform.Translate(Vector3.forward * Time.deltaTime * _speed);
 	#endregion
 }

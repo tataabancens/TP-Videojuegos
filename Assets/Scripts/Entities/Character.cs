@@ -33,14 +33,7 @@ public class Character : Actor, IMoveable
     // Update is called once per frame
     private void Update()
     {
-        // Move forward
-        if (Input.GetKey(_moveForward)) Move(Vector3.forward);
-        // Move back
-        if (Input.GetKey(_moveBack)) Move(-Vector3.forward);
-        // Move left
-        if (Input.GetKey(_moveLeft)) Move(-Vector3.right);
-        // Move right
-        if (Input.GetKey(_moveRight)) Move(Vector3.right);
+        
 
         // Shoot Bullet
         if (Input.GetKeyDown(_attack)) _currentGun.Shoot();
@@ -50,14 +43,28 @@ public class Character : Actor, IMoveable
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
         if (Input.GetKeyDown(_gunSlot3)) SwitchGuns(2);
- 
     }
 
-    #region IMOVEABLE_PROPERTIES
+	private void FixedUpdate() {
+        // Move forward
+        if (Input.GetKey(_moveForward)) Move(Vector3.forward);
+        // Move back
+        if (Input.GetKey(_moveBack)) Move(-Vector3.forward);
+        // Move left
+        if (Input.GetKey(_moveLeft)) Turn(-Vector3.up);
+        // Move right
+        if (Input.GetKey(_moveRight)) Turn(Vector3.up);
+    }
 
-    [SerializeField] private float _speed = 5f;
+	#region IMOVEABLE_PROPERTIES
+
+	[SerializeField] private float _speed = 5f;
     public float MovementSpeed => _speed;
-    public void Move(Vector3 direction) => transform.position += direction * (Time.deltaTime * MovementSpeed);
+
+    [SerializeField] private float _turnSpeed = 100f;
+    public float TurnSpeed => _turnSpeed;
+    public void Move(Vector3 direction) => transform.Translate(direction * (Time.deltaTime * MovementSpeed));
+    public void Turn(Vector3 direction) => transform.Rotate(direction * Time.deltaTime * _turnSpeed, Space.Self);
 
     #endregion
 

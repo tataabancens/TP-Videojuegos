@@ -8,5 +8,10 @@ public interface IMoveable
         get;
 	}
 
+    float TurnSpeed {
+        get;
+    }
+
     void Move(Vector3 direction);
+    void Turn(Vector3 direction);
 }
