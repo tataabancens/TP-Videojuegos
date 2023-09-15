@@ -22,6 +22,8 @@ public class Actor : MonoBehaviour, IDamageable
 
 	#region IDAMAGEABLE_METHODS
 	public void Die() {
+		if (name.Equals("Character")) EventsManager.instance.EventGameOver(false);
+		else Destroy(gameObject);
 		Debug.Log($"{name} Died");
 	}
 

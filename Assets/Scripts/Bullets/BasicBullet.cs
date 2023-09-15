@@ -23,8 +23,8 @@ public class BasicBullet : MonoBehaviour, IBullet
 	}
 	void Update()
 	{
-		// Travel();
 
+		// Travel();
 		_lifetime -= Time.deltaTime;
 		if (_lifetime < 0) Die();
 	}
@@ -55,7 +55,6 @@ public class BasicBullet : MonoBehaviour, IBullet
 
 	public void Init()
 	{
-		// _collider.isTrigger = true;
 		_rigidbody.useGravity = false;
 		_rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 		_rigidbody.AddForce(transform.forward * Speed, ForceMode.Impulse);
