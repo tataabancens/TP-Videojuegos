@@ -9,4 +9,6 @@ public interface IMoveable
 	}
 
     void Move(Vector3 direction);
+
+    void Turn(Vector3 direction);
 }

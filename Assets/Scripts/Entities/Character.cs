@@ -1,10 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : Actor, IMoveable
+public class Character : Actor
 {
     [SerializeField] private List<Gun> _guns;
     [SerializeField] private Gun _currentGun;
+    private MovementController _movementController;
+
+    #region GUN_COMMAND
+    private CmdShoot _cmdShoot;
+    private CmdReload _cmdReload;
+    #endregion
 
     #region KEY_BINDINGS
 
@@ -28,24 +34,18 @@ public class Character : Actor, IMoveable
     {
         base.Start();
         SwitchGuns(0);
+        _movementController = GetComponent<MovementController>();
+
+        InitMovementCommands();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        // Move forward
-        if (Input.GetKey(_moveForward)) Move(Vector3.forward);
-        // Move back
-        if (Input.GetKey(_moveBack)) Move(-Vector3.forward);
-        // Move left
-        if (Input.GetKey(_moveLeft)) Move(-Vector3.right);
-        // Move right
-        if (Input.GetKey(_moveRight)) Move(Vector3.right);
 
         // Shoot Bullet
-        if (Input.GetKeyDown(_attack)) _currentGun.Shoot();
-        // Reload
-        if (Input.GetKeyDown(_reload)) _currentGun.Reload();
+        if (Input.GetKeyDown(_attack)) EventQueueManager.instance.AddCommand(_cmdShoot);
+        if (Input.GetKeyDown(_reload)) EventQueueManager.instance.AddCommand(_cmdReload);
 
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
@@ -58,12 +58,36 @@ public class Character : Actor, IMoveable
 
     }
 
-    #region IMOVEABLE_PROPERTIES
+    private void FixedUpdate()
+    {
+        // Move forward
+        if (Input.GetKey(_moveForward)) EventQueueManager.instance.AddCommand(_cmdMoveForward);
+        // Move back
+        if (Input.GetKey(_moveBack)) EventQueueManager.instance.AddCommand(_cmdMoveBack);
+        // Move left
+        if (Input.GetKey(_moveLeft)) EventQueueManager.instance.AddCommand(_cmdRotateLeft);
+        // Move right
+        if (Input.GetKey(_moveRight)) EventQueueManager.instance.AddCommand(_cmdRotateRight);
+    }
 
-    [SerializeField] private float _speed = 5f;
-    public float MovementSpeed => _speed;
-    public void Move(Vector3 direction) => transform.position += direction * (Time.deltaTime * MovementSpeed);
+    #region MOVEMENT_COMMAND
+    private CmdMovement _cmdMoveForward;
+    private CmdMovement _cmdMoveBack;
+    private CmdMovement _cmdMoveRight;
+    private CmdMovement _cmdMoveLeft;
+    private CmdRotateActor _cmdRotateLeft;
+    private CmdRotateActor _cmdRotateRight;
 
+    private void InitMovementCommands()
+    {
+        _cmdMoveForward = new CmdMovement(_movementController, Vector3.forward);
+        _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
+        _cmdMoveRight = new CmdMovement(_movementController, Vector3.right);
+        _cmdMoveLeft = new CmdMovement(_movementController, -Vector3.right);
+        _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
+        _cmdRotateLeft = new CmdRotateActor(_movementController, -Vector3.up);
+        _cmdRotateRight = new CmdRotateActor(_movementController, Vector3.up);
+    }
     #endregion
 
     private void SwitchGuns(int index)
@@ -75,5 +99,7 @@ public class Character : Actor, IMoveable
 
         _guns[index].gameObject.SetActive(true);
         _currentGun = _guns[index];
+        _cmdShoot = new CmdShoot(_currentGun);
+        _cmdReload = new CmdReload(_currentGun);
     }
 }

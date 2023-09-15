@@ -33,7 +33,12 @@ public class BasicBullet : MonoBehaviour, IBullet
 	{
 		if (((1 << other.gameObject.layer) & _hittableMask) != 0)
 		{
-			other.GetComponent<Actor>()?.TakeDamage(_owner.Damage);
+			//other.GetComponent<Actor>()?.TakeDamage(_owner.Damage);
+			if(other.GetComponent<IDamageable>() != null)
+            {
+				new CmdApplyDamage(other.GetComponent<IDamageable>(), _owner.Damage).Do();
+
+			}
 			Die();
 		}
 	}
