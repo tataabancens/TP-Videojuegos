@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5214f1cdaf393d4caff0b09f8014572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletHitMissDistance: 25
   _stats: {fileID: 0}
   _bulletContainer: {fileID: 0}
   _attackPoint: {fileID: 0}
@@ -195,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf90c9c79ebf4e448e556e1d1ced243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletHitMissDistance: 25
   _stats: {fileID: 0}
   _bulletContainer: {fileID: 0}
   _attackPoint: {fileID: 1697563782756631977}
@@ -388,7 +390,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90d06a0cac2b68d4dbe015ff9411ab0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -589,7 +591,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -637,11 +639,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f7b9d24c5388946ae34a32cfc505cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 100
+  stats: {fileID: 0}
   _life: 0
   _guns:
   - {fileID: 1697563782643923804}
   _currentGun: {fileID: 1697563782643923804}
+  _jumpHeight: 0
+  _gravityValue: 0
+  _characterStats: {fileID: 0}
   _moveForward: 119
   _moveBack: 115
   _moveLeft: 97
@@ -874,7 +879,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 90d06a0cac2b68d4dbe015ff9411ab0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -956,6 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663312b69a94f8f448f08d109220e172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletHitMissDistance: 25
   _stats: {fileID: 0}
   _bulletContainer: {fileID: 0}
   _attackPoint: {fileID: 0}
