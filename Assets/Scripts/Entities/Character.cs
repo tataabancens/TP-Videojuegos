@@ -5,7 +5,7 @@ public class Character : Actor
 {
     [SerializeField] private List<Gun> _guns;
     [SerializeField] private Gun _currentGun;
-    private MovementController _movementController;
+    [SerializeField] private CharacterStats _characterStats;
 
     #region GUN_COMMAND
     private CmdShoot _cmdShoot;
@@ -32,9 +32,9 @@ public class Character : Actor
     // Start is called before the first frame update
     private void Start()
     {
+        base.stats = _characterStats;
         base.Start();
         SwitchGuns(0);
-        _movementController = GetComponent<MovementController>();
 
         InitMovementCommands();
     }
@@ -81,13 +81,13 @@ public class Character : Actor
 
     private void InitMovementCommands()
     {
-        _cmdMoveForward = new CmdMovement(_movementController, Vector3.forward);
-        _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
-        _cmdMoveRight = new CmdMovement(_movementController, Vector3.right);
-        _cmdMoveLeft = new CmdMovement(_movementController, -Vector3.right);
-        _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
-        _cmdRotateLeft = new CmdRotateActor(_movementController, -Vector3.up);
-        _cmdRotateRight = new CmdRotateActor(_movementController, Vector3.up);
+        _cmdMoveForward = new CmdMovement(transform, Vector3.forward, _characterStats.MovementSpeed);
+        _cmdMoveBack = new CmdMovement(transform, -Vector3.forward, _characterStats.MovementSpeed);
+        _cmdMoveRight = new CmdMovement(transform, Vector3.right, _characterStats.MovementSpeed);
+        _cmdMoveLeft = new CmdMovement(transform, -Vector3.right, _characterStats.MovementSpeed);
+        _cmdMoveBack = new CmdMovement(transform, -Vector3.forward, _characterStats.MovementSpeed);
+        _cmdRotateLeft = new CmdRotateActor(transform, -Vector3.up, _characterStats.RotationSpeed);
+        _cmdRotateRight = new CmdRotateActor(transform, Vector3.up, _characterStats.RotationSpeed);
     }
     #endregion
 
