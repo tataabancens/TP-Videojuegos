@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Doorbell : MonoBehaviour, IListener
+public class Gunshot : MonoBehaviour, IListener
 {
 	#region PUBLIC_PROPERTIES
 	public AudioClip AudioClip => _audioClip;
@@ -37,8 +37,8 @@ public class Doorbell : MonoBehaviour, IListener
     }
 
     public void Update() {
-        if(Input.GetKeyDown(KeyCode.Alpha1)) PlayOnShot();
-        if (Input.GetKeyDown(KeyCode.Alpha2)) Play();
-        if (Input.GetKeyDown(KeyCode.Alpha3)) Stop();
+        if(Input.GetMouseButtonDown(0)) PlayOnShot();
+        // if (Input.GetKeyDown(KeyCode.Alpha2)) Play();
+        // if (Input.GetKeyDown(KeyCode.Alpha3)) Stop();
     }
 }
