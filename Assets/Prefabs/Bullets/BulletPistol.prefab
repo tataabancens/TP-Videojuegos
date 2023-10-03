@@ -116,6 +116,7 @@ MonoBehaviour:
   _hittableMask:
     serializedVersion: 2
     m_Bits: 55
+  _bulletDecal: {fileID: 2838843732175396869, guid: 70ef20bb6921e554ca02d007caa72084, type: 3}
 --- !u!54 &6582996483234957567
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -12,21 +12,33 @@ public class BasicBullet : MonoBehaviour, IBullet
 	protected Collider _collider;
 	protected Rigidbody _rigidbody;
 	private IGun _owner;
+
+	[SerializeField] GameObject _bulletDecal;
+	// public Vector3 target { get; set; }
+	public bool hit { get; set; }
+
 	#endregion
 
 	#region UNITY_METHODS
-	protected void Start()
-	{
+	protected void Awake() {
 		_collider = GetComponent<Collider>();
 		_rigidbody = GetComponent<Rigidbody>();
 		Init();
 	}
-	void Update()
-	{
 
-		// Travel();
-		_lifetime -= Time.deltaTime;
-		if (_lifetime < 0) Die();
+	protected void Start()
+	{
+		
+	}
+	private void OnEnable() {
+		Destroy(gameObject, Lifetime);
+	}
+
+	private void OnCollisionEnter(Collision collision) {
+		ContactPoint contact = collision.GetContact(0);
+		GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
+			Quaternion.LookRotation(contact.normal));
+		Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -57,7 +69,13 @@ public class BasicBullet : MonoBehaviour, IBullet
 	{
 		_rigidbody.useGravity = false;
 		_rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
-		_rigidbody.AddForce(transform.forward * Speed, ForceMode.Impulse);
+	}
+
+	public void AddForceTowards(Vector3 target) {
+		if (target == null) return;
+		Vector3 direction = (target - transform.position).normalized;
+		if (_rigidbody == null) Debug.Log("Null rigid");
+		_rigidbody.AddForce(direction * Speed, ForceMode.Impulse);
 	}
 
 	public void Travel() => transform.Translate(Vector3.forward * Time.deltaTime * _speed);
