@@ -1,20 +1,44 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
 public class Character : Actor
 {
-    [SerializeField] private List<Gun> _guns;
+	#region PRIVATE_PROPERTIES
+	[SerializeField] private List<Gun> _guns;
     [SerializeField] private Gun _currentGun;
     private MovementController _movementController;
+    [SerializeField] private float _jumpHeight;
+    [SerializeField] private float _gravityValue;
 
-    #region GUN_COMMAND
-    private CmdShoot _cmdShoot;
+    private CharacterController _controller;
+    private PlayerInput _playerInput;
+    private Vector3 _playerVelocity;
+    private Transform _cameraTransform;
+	#endregion
+
+	#region GUN_COMMAND
+	private CmdShoot _cmdShoot;
     private CmdReload _cmdReload;
     #endregion
 
-    #region KEY_BINDINGS
+    #region INPUT_ACTIONS
+    private InputAction _moveAction;
+    private InputAction _jumpAction;
+    private InputAction _shootAction;
 
-    [SerializeField] private KeyCode _moveForward = KeyCode.W;
+    private void InitInputActions() {
+        _moveAction = _playerInput.actions["Move"];
+        _jumpAction = _playerInput.actions["Jump"];
+        _shootAction = _playerInput.actions["Shoot"];
+	}
+
+	#endregion
+
+	#region KEY_BINDINGS
+
+	[SerializeField] private KeyCode _moveForward = KeyCode.W;
     [SerializeField] private KeyCode _moveBack = KeyCode.S;
     [SerializeField] private KeyCode _moveLeft = KeyCode.A;
     [SerializeField] private KeyCode _moveRight = KeyCode.D;
@@ -28,15 +52,31 @@ public class Character : Actor
 
     #endregion
 
+    private void Awake() {
+        _playerInput = GetComponent<PlayerInput>();
+        InitInputActions();
+        InitMovementCommands();
 
-    // Start is called before the first frame update
-    private void Start()
+        _controller = GetComponent<CharacterController>();
+        _movementController = GetComponent<MovementController>();
+        SwitchGuns(0);
+        _cameraTransform = Camera.main.transform;
+
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+	private void OnEnable() {
+		_shootAction.performed += _ => EventQueueManager.instance.AddCommand(_cmdShoot);
+    }
+
+	private void OnDisable() {
+        _shootAction.performed -= _ => EventQueueManager.instance.AddCommand(_cmdShoot);
+    }
+
+	// Start is called before the first frame update
+	private void Start()
     {
         base.Start();
-        SwitchGuns(0);
-        _movementController = GetComponent<MovementController>();
-
-        InitMovementCommands();
     }
 
     // Update is called once per frame
@@ -44,7 +84,7 @@ public class Character : Actor
     {
 
         // Shoot Bullet
-        if (Input.GetKeyDown(_attack)) EventQueueManager.instance.AddCommand(_cmdShoot);
+        // if (Input.GetKeyDown(_attack)) EventQueueManager.instance.AddCommand(_cmdShoot);
         if (Input.GetKeyDown(_reload)) EventQueueManager.instance.AddCommand(_cmdReload);
 
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
@@ -55,20 +95,34 @@ public class Character : Actor
         if (Input.GetKeyDown(KeyCode.Return)) EventsManager.instance.EventGameOver(true);
         if (Input.GetKeyDown(KeyCode.Backspace)) TakeDamage(25);
 
-
+        CharacterMovement();
     }
 
-    private void FixedUpdate()
+    private void CharacterMovement()
     {
-        if (Input.GetKey(KeyCode.Backspace)) Debug.Log(EventQueueManager.instance);
-        // Move forward
-        if (Input.GetKey(_moveForward)) EventQueueManager.instance.AddCommand(_cmdMoveForward);
-        // Move back
-        if (Input.GetKey(_moveBack)) EventQueueManager.instance.AddCommand(_cmdMoveBack);
-        // Move left
-        if (Input.GetKey(_moveLeft)) EventQueueManager.instance.AddCommand(_cmdRotateLeft);
-        // Move right
-        if (Input.GetKey(_moveRight)) EventQueueManager.instance.AddCommand(_cmdRotateRight);
+        bool groundedPlayer = _controller.isGrounded;
+        if (groundedPlayer && _playerVelocity.y < 0) {
+            _playerVelocity.y = 0f;
+        }
+
+
+        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        move = move.x * _cameraTransform.right.normalized + move.z * _cameraTransform.forward.normalized;
+        move.y = 0f;
+        EventQueueManager.instance.AddCommand(new CmdMove(_controller, move * Time.deltaTime * _movementController.MovementSpeed));
+
+        if (_jumpAction.triggered && groundedPlayer) {
+            _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravityValue);
+        }
+
+        _playerVelocity.y += _gravityValue * Time.deltaTime;
+
+        EventQueueManager.instance.AddCommand(new CmdMove(_controller, _playerVelocity * Time.deltaTime));
+
+        // Rotate towards camera direction
+        Quaternion tagetRotation = Quaternion.Euler(0, _cameraTransform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, tagetRotation, _movementController.TurnSpeed);
     }
 
     #region MOVEMENT_COMMAND
