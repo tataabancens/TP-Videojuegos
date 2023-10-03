@@ -11,6 +11,7 @@ public class Character : Actor
     private MovementController _movementController;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private float _gravityValue;
+    [SerializeField] private CharacterStats _characterStats;
 
     private CharacterController _controller;
     private PlayerInput _playerInput;
@@ -59,6 +60,7 @@ public class Character : Actor
 
         _controller = GetComponent<CharacterController>();
         _movementController = GetComponent<MovementController>();
+        base.stats = _characterStats;
         SwitchGuns(0);
         _cameraTransform = Camera.main.transform;
 
@@ -135,13 +137,13 @@ public class Character : Actor
 
     private void InitMovementCommands()
     {
-        _cmdMoveForward = new CmdMovement(_movementController, Vector3.forward);
-        _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
-        _cmdMoveRight = new CmdMovement(_movementController, Vector3.right);
-        _cmdMoveLeft = new CmdMovement(_movementController, -Vector3.right);
-        _cmdMoveBack = new CmdMovement(_movementController, -Vector3.forward);
-        _cmdRotateLeft = new CmdRotateActor(_movementController, -Vector3.up);
-        _cmdRotateRight = new CmdRotateActor(_movementController, Vector3.up);
+        _cmdMoveForward = new CmdMovement(transform, Vector3.forward, _characterStats.MovementSpeed);
+        _cmdMoveBack = new CmdMovement(transform, -Vector3.forward, _characterStats.MovementSpeed);
+        _cmdMoveRight = new CmdMovement(transform, Vector3.right, _characterStats.MovementSpeed);
+        _cmdMoveLeft = new CmdMovement(transform, -Vector3.right, _characterStats.MovementSpeed);
+        _cmdMoveBack = new CmdMovement(transform, -Vector3.forward, _characterStats.MovementSpeed);
+        _cmdRotateLeft = new CmdRotateActor(transform, -Vector3.up, _characterStats.RotationSpeed);
+        _cmdRotateRight = new CmdRotateActor(transform, Vector3.up, _characterStats.RotationSpeed);
     }
     #endregion
 

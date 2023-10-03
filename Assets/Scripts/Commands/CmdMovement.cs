@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class CmdMovement : ICommand
 {
-    private IMoveable _moveable;
+    private Transform _transform;
     private Vector3 _direction;
+    private float _speed;
     
 
-    public CmdMovement(IMoveable moveable, Vector3 direction)
+    public CmdMovement(Transform transform, Vector3 direction, float speed)
     {
-        _moveable = moveable;
+        _transform = transform;
+        _speed = speed;
         _direction = direction;
     }
 
-    public void Do() => _moveable.Move(_direction);
+    public void Do() => _transform.Translate(_direction * Time.deltaTime * _speed);
 
 }

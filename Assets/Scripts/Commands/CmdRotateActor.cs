@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class CmdRotateActor : ICommand
 {
-    private IMoveable _moveable;
+    private Transform _transform;
     private Vector3 _direction;
+    private float _speed;
 
 
-    public CmdRotateActor(IMoveable moveable, Vector3 direction)
+    public CmdRotateActor(Transform transform, Vector3 direction, float speed)
     {
-        _moveable = moveable;
+        _transform = transform;
+        _speed = speed;
         _direction = direction;
     }
 
-    public void Do() => _moveable.Turn(_direction);
+    public void Do() => _transform.Rotate(_direction * Time.deltaTime * _speed, Space.Self);
 
 }
