@@ -8,7 +8,6 @@ public class Character : Actor
 	#region PRIVATE_PROPERTIES
 	[SerializeField] private List<Gun> _guns;
     [SerializeField] private Gun _currentGun;
-    private MovementController _movementController;
     [SerializeField] private float _jumpHeight;
     [SerializeField] private float _gravityValue;
     [SerializeField] private CharacterStats _characterStats;
@@ -56,10 +55,8 @@ public class Character : Actor
     private void Awake() {
         _playerInput = GetComponent<PlayerInput>();
         InitInputActions();
-        InitMovementCommands();
 
         _controller = GetComponent<CharacterController>();
-        _movementController = GetComponent<MovementController>();
         base.stats = _characterStats;
         SwitchGuns(0);
         _cameraTransform = Camera.main.transform;
@@ -112,7 +109,7 @@ public class Character : Actor
         Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         move = move.x * _cameraTransform.right.normalized + move.z * _cameraTransform.forward.normalized;
         move.y = 0f;
-        EventQueueManager.instance.AddCommand(new CmdMove(_controller, move * Time.deltaTime * _movementController.MovementSpeed));
+        EventQueueManager.instance.AddCommand(new CmdMove(_controller, move * Time.deltaTime * _characterStats.MovementSpeed));
 
         if (_jumpAction.triggered && groundedPlayer) {
             _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravityValue);
@@ -124,28 +121,8 @@ public class Character : Actor
 
         // Rotate towards camera direction
         Quaternion tagetRotation = Quaternion.Euler(0, _cameraTransform.eulerAngles.y, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, tagetRotation, _movementController.TurnSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, tagetRotation, _characterStats.RotationSpeed);
     }
-
-    #region MOVEMENT_COMMAND
-    private CmdMovement _cmdMoveForward;
-    private CmdMovement _cmdMoveBack;
-    private CmdMovement _cmdMoveRight;
-    private CmdMovement _cmdMoveLeft;
-    private CmdRotateActor _cmdRotateLeft;
-    private CmdRotateActor _cmdRotateRight;
-
-    private void InitMovementCommands()
-    {
-        _cmdMoveForward = new CmdMovement(transform, Vector3.forward, _characterStats.MovementSpeed);
-        _cmdMoveBack = new CmdMovement(transform, -Vector3.forward, _characterStats.MovementSpeed);
-        _cmdMoveRight = new CmdMovement(transform, Vector3.right, _characterStats.MovementSpeed);
-        _cmdMoveLeft = new CmdMovement(transform, -Vector3.right, _characterStats.MovementSpeed);
-        _cmdMoveBack = new CmdMovement(transform, -Vector3.forward, _characterStats.MovementSpeed);
-        _cmdRotateLeft = new CmdRotateActor(transform, -Vector3.up, _characterStats.RotationSpeed);
-        _cmdRotateRight = new CmdRotateActor(transform, Vector3.up, _characterStats.RotationSpeed);
-    }
-    #endregion
 
     private void SwitchGuns(int index)
     {
