@@ -3,20 +3,21 @@ using UnityEngine;
 public class Actor : MonoBehaviour, IDamageable
 {
 	#region IDAMAGEABLE_PROPERTIES
-	public int MaxLife => _maxLife;
+	public int MaxLife => stats.MaxLife;
 
 	public int Life => _life;
 	#endregion
 
 	#region PRIVATE_PROPERTIES
-	[SerializeField] private int _maxLife = 100;
+	public EntitieStats Stats => stats;
+	[SerializeField] protected EntitieStats stats;
 	[SerializeField] private int _life;
 	#endregion
 
 	#region UNITY_METHODS
 	protected void Start()
 	{
-		_life = _maxLife;
+		_life = MaxLife;
 	}
 	#endregion
 
