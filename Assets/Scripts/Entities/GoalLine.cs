@@ -14,6 +14,9 @@ public class GoalLine : MonoBehaviour
 	private void OnTriggerEnter(Collider other) {
 		if (other.CompareTag("Pelota")) {
             EventsManager.instance.EventGoal(1);
+
+            Ball ball = other.gameObject.GetComponent<Ball>();
+            ball.RespawnBall();
 		}
 	}
 
