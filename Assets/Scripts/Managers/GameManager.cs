@@ -12,8 +12,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _gameOverMessage;
     [SerializeField]private TextMeshProUGUI _timerCounter;
     [SerializeField] private TextMeshProUGUI _pointsCounter;
+    [SerializeField] private TextMeshProUGUI _ammoCounter;
+
+    public static GameManager instance;
 
     #region UNITY_EVENTS
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         OnTimerUpdate();
         _pointsCounter.text = _points.ToString();
+        
     }
 
     #region ACTIONS
@@ -40,6 +50,19 @@ public class GameManager : MonoBehaviour
         _gameOverMessage.color = isVictory ? Color.cyan : Color.red;
     }
 
+    public void UpdateAmmoCount(int _ammoCount)
+    {
+        if(_ammoCount == 0)
+        {
+            _ammoCounter.text = "RELOAD";
+            _ammoCounter.color = Color.red;
+        }
+        else
+        {
+            _ammoCounter.text = _ammoCount.ToString();
+            _ammoCounter.color = Color.white;
+        }
+    }
     private void OnTimerUpdate()
     {
         if (_timerInSeconds > 0)
@@ -66,7 +89,6 @@ public class GameManager : MonoBehaviour
 
     private void OnGoal(int points) {
         _points += points;
-        Debug.Log("Gool desde el game manager, puntos: " + _points);
 	}
     #endregion
 }
