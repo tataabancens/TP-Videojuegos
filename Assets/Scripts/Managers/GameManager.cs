@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         EventsManager.instance.OnGameOver += OnGameOver;
+        EventsManager.instance.OnGoal += OnGoal;
+
         _gameOverMessage.text = string.Empty;
     }
     #endregion
@@ -61,5 +63,10 @@ public class GameManager : MonoBehaviour
         }
         _timerCounter.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
+    private void OnGoal(int points) {
+        _points += points;
+        Debug.Log("Gool desde el game manager, puntos: " + _points);
+	}
     #endregion
 }
