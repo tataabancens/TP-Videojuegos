@@ -4,13 +4,17 @@ using UnityEngine;
 
 public interface IListener
 {
-    AudioClip AudioClip {
+    AudioClip AudioClipGunshot {
+        get;
+    }
+    AudioClip AudioClipReload
+    {
         get;
     }
     AudioSource AudioSource {get;}
 
     void InitAudioSource();
-    void PlayOnShot();
+    void PlayOnShot(AudioClip clip);
     void Play();
     void Stop();
 }

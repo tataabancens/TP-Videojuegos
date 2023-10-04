@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Gunshot : MonoBehaviour, IListener
 {
-	#region PUBLIC_PROPERTIES
-	public AudioClip AudioClip => _audioClip;
+
+    #region PUBLIC_PROPERTIES
+    public AudioClip AudioClipGunshot => _audioClipGunshot;
+    public AudioClip AudioClipReload => _audioClipReload;
     public AudioSource AudioSource => _audioSource;
-	#endregion
+    #endregion
 
 
-	#region PRIVATE_PROPERTIES
-	[SerializeField] private AudioClip _audioClip;
+    #region PRIVATE_PROPERTIES
+    [SerializeField] private AudioClip _audioClipGunshot;
+    [SerializeField] private AudioClip _audioClipReload;
     [SerializeField] private AudioSource _audioSource;
-	#endregion
+    #endregion
 
-	public void InitAudioSource() {
+    public void InitAudioSource() {
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.clip = _audioClip;
+        _audioSource.clip = _audioClipGunshot;
     }
 
-    public void PlayOnShot() {
-        _audioSource.PlayOneShot(_audioClip);
+    public void PlayOnShot(AudioClip clip) {
+        _audioSource.PlayOneShot(clip, 1.5f);
     }
 
     public void Play() {
@@ -37,7 +41,8 @@ public class Gunshot : MonoBehaviour, IListener
     }
 
     public void Update() {
-        if(Input.GetMouseButtonDown(0)) PlayOnShot();
+        if(Input.GetMouseButtonDown(0)) PlayOnShot(_audioClipGunshot);
+        if(Input.GetKeyDown(KeyCode.R)) PlayOnShot(_audioClipReload);
         // if (Input.GetKeyDown(KeyCode.Alpha2)) Play();
         // if (Input.GetKeyDown(KeyCode.Alpha3)) Stop();
     }
