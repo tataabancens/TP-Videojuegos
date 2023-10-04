@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterStats
   m_EditorClassIdentifier: 
   _stats:
-    MaxLife: 0
+    MaxLife: 100
   _characterStats:
-    MovementSpeed: 100
-    RotationSpeed: 250
+    MovementSpeed: 150
+    RotationSpeed: 700

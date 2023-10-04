@@ -2235,9 +2235,17 @@ PrefabInstance:
       value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 1697563783076177184, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 039e217b797e29142803b182d0f2545c, type: 2}
+    - target: {fileID: 1697563783076177184, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
       propertyPath: _turnSpeed
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 1697563783076177184, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
+      propertyPath: _characterStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 039e217b797e29142803b182d0f2545c, type: 2}
     - target: {fileID: 1697563783076177184, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
       propertyPath: _guns.Array.size
       value: 3
@@ -2312,11 +2320,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
---- !u!1 &1697563782849568880 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1697563783076177186, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
-  m_PrefabInstance: {fileID: 1697563782849568879}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1697563782849568881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1697563783645587026, guid: 42f40ca6b97e9f8469f4dc1b30a760b0, type: 3}
@@ -2328,20 +2331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663312b69a94f8f448f08d109220e172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1697563782849568882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1697563782849568880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1c804bbffcbe5c41984a4159297119b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementSpeed: 15
-  _turnSpeed: 400
 --- !u!1001 &8636125214767877715
 PrefabInstance:
   m_ObjectHideFlags: 0
