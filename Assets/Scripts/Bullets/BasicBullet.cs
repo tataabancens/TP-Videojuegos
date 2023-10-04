@@ -14,8 +14,6 @@ public class BasicBullet : MonoBehaviour, IBullet
 	private IGun _owner;
 
 	[SerializeField] GameObject _bulletDecal;
-	// public Vector3 target { get; set; }
-	public bool hit { get; set; }
 
 	#endregion
 
@@ -36,10 +34,18 @@ public class BasicBullet : MonoBehaviour, IBullet
 
 	private void OnCollisionEnter(Collision collision) {
 		ContactPoint contact = collision.GetContact(0);
-		if (!collision.gameObject.CompareTag("Pelota")) {
-			GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
-			Quaternion.LookRotation(contact.normal));
+		if (collision.gameObject.CompareTag("Pelota")) {
+			collision.gameObject.GetComponent<Ball>().UnFreeze();
+			return;
 		}
+		GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
+		Quaternion.LookRotation(contact.normal));
+		
+		
+	}
+
+	private void OnCollisionExit(Collision collision) {
+		Debug.Log("Exit");
 		Destroy(gameObject);
 	}
 
@@ -73,7 +79,7 @@ public class BasicBullet : MonoBehaviour, IBullet
 		_rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 	}
 
-	public void AddForceTowards(Vector3 target) {
+	public void InitialSpeed(Vector3 target) {
 		if (target == null) return;
 		Vector3 direction = (target - transform.position).normalized;
 		if (_rigidbody == null) Debug.Log("Null rigid");
