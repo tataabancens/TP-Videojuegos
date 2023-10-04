@@ -8,6 +8,7 @@ public abstract class Gun : MonoBehaviour, IGun
 	public GameObject BulletPrefab => _stats.BulletPrefab;
 	public Transform BulletContainer => _bulletContainer;
 	public Transform AttackPoint => _attackPoint;
+	[SerializeField] public float _bulletHitMissDistance = 25f;
 
 	public WeaponStats Stats => _stats;
 	[SerializeField] private WeaponStats _stats;
@@ -18,11 +19,13 @@ public abstract class Gun : MonoBehaviour, IGun
 	[SerializeField] private Transform _bulletContainer;
 	[SerializeField] private Transform _attackPoint;
 	protected int _currentBulletCount;
+	protected Transform _cameraTransform;
 	#endregion
 
 	#region UNITY_EVENTS
 	void Start() {
 		Reload();
+		_cameraTransform = Camera.main.transform;
 	}
 
 	// Update is called once per frame

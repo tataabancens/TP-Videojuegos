@@ -10,9 +10,19 @@ public class Pistol : Gun
 		{
 			return;
 		}
-		
+
 		GameObject bullet = Instantiate(BulletPrefab, AttackPoint.position, AttackPoint.rotation, BulletContainer);
-		bullet.GetComponent<BasicBullet>().SetOwner(this);
+		BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
+		basicBullet.SetOwner(this);
 		_currentBulletCount--;
+
+		RaycastHit hit;
+		if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, Mathf.Infinity)) {
+			Debug.Log(hit.point);
+			basicBullet.AddForceTowards(hit.point);
+		} else {
+			Debug.Log("There");
+			basicBullet.AddForceTowards(_cameraTransform.position + _cameraTransform.forward * _bulletHitMissDistance);
+		}	
 	}
 }
