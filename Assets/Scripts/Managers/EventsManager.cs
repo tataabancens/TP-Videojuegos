@@ -21,5 +21,11 @@ public class EventsManager : MonoBehaviour
     {
         if (OnGameOver != null) OnGameOver(isVictory);
     }
+
+    public event Action<int> OnGoal;
+
+    public void EventGoal(int points) {
+        if (OnGoal != null) OnGoal(points);
+	}
     #endregion
 }
