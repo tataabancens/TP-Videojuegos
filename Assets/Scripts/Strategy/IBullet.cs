@@ -16,6 +16,4 @@ public interface IBullet
     void Travel();
     void Die();
     void SetOwner(IGun owner);
-
-    void InitialSpeed(Vector3 target);
 }
