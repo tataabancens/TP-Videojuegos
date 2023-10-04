@@ -19,10 +19,10 @@ public class Pistol : Gun
 		RaycastHit hit;
 		if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, Mathf.Infinity)) {
 			Debug.Log(hit.point);
-			basicBullet.AddForceTowards(hit.point);
+			basicBullet.InitialSpeed(hit.point);
 		} else {
 			Debug.Log("There");
-			basicBullet.AddForceTowards(_cameraTransform.position + _cameraTransform.forward * _bulletHitMissDistance);
+			basicBullet.InitialSpeed(_cameraTransform.position + _cameraTransform.forward * _bulletHitMissDistance);
 		}	
 	}
 }
