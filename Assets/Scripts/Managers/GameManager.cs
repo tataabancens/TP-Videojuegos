@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         _isGameOver = true;
         _isVictory = isVictory;
 
-        _gameOverMessage.text = isVictory ? "VICTORIA!!" : "DERROTA";
+        _gameOverMessage.text = isVictory ? "Victory!!" : "Defeat";
         _gameOverMessage.color = isVictory ? Color.cyan : Color.red;
     }
 
