@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventsManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class EventsManager : MonoBehaviour
     public void EventGameOver(bool isVictory)
     {
         if (OnGameOver != null) OnGameOver(isVictory);
+        SceneManager.LoadScene("GameOver");
     }
 
     public event Action<int> OnGoal;

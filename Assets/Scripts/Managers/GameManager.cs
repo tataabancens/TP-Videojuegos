@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         OnTimerUpdate();
         _pointsCounter.text = _points.ToString();
+
         
     }
 
