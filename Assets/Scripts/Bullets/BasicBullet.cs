@@ -45,7 +45,6 @@ public class BasicBullet : MonoBehaviour, IBullet
 	}
 
 	private void OnCollisionExit(Collision collision) {
-		Debug.Log("Exit");
 		Destroy(gameObject);
 	}
 

@@ -18,7 +18,6 @@ public class Pistol : Gun
 
 		RaycastHit hit;
 		if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, Mathf.Infinity)) {
-			Debug.Log(hit.point);
 			basicBullet.InitialSpeed(hit.point);
 		} else {
 			Debug.Log("There");

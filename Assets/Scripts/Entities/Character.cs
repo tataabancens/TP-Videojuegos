@@ -83,16 +83,13 @@ public class Character : Actor
     {
 
         // Shoot Bullet
-        // if (Input.GetKeyDown(_attack)) EventQueueManager.instance.AddCommand(_cmdShoot);
         if (Input.GetKeyDown(_reload)) EventQueueManager.instance.AddCommand(_cmdReload);
 
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
         if (Input.GetKeyDown(_gunSlot3)) SwitchGuns(2);
 
-        //end game conditions
-        if (Input.GetKeyDown(KeyCode.Return)) EventsManager.instance.EventGameOver(true);
-        if (Input.GetKeyDown(KeyCode.Backspace)) TakeDamage(25);
+        GameManager.instance.UpdateAmmoCount(_currentGun._currentBulletCount);
 
         CharacterMovement();
     }

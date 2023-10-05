@@ -18,7 +18,7 @@ public abstract class Gun : MonoBehaviour, IGun
 	#region PRIVATE_PROPERTIES
 	[SerializeField] private Transform _bulletContainer;
 	[SerializeField] private Transform _attackPoint;
-	protected int _currentBulletCount;
+	public int _currentBulletCount;
 	protected Transform _cameraTransform;
 	#endregion
 
