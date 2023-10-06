@@ -23,7 +23,10 @@ public class RankingManager : MonoBehaviour
     }
     private void Start()
     {
-        _inputWindow.Show("Submit score", "Enter name");
+        if (GameManager._isGameOver)
+        {
+            _inputWindow.Show("Submit score", "Enter name");
+        }
         _db = new Database();
         DisplayDB();
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private bool _isGameOver = false;
+    [SerializeField] public static bool _isGameOver = false;
     [SerializeField] private bool _isVictory = false;
     [SerializeField] private float _timerInSeconds = 30f;
     public static int _points = 0;
