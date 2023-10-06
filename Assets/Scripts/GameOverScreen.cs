@@ -9,18 +9,24 @@ public class GameOverScreen : MonoBehaviour
 
     public Text pointsText;
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void Setup(int score)
     {
         gameObject.SetActive(true);
         pointsText.text = score.ToString() + " PUNTOS";
     }
 
-    public void RestartButton()
+    public void PlayAgainButton()
     {
-        SceneManager.LoadScene("GameOver");
+        SceneManager.LoadScene("FutbolScene");
     }
     public void ExitButton()
     {
-        SceneManager.LoadScene("GameOver");
+        Application.Quit();
     }
 }
