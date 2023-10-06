@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.OnGoal += OnGoal;
 
         _gameOverMessage.text = string.Empty;
+        _points = 0;
     }
     #endregion
 
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Ranking");
     }
 
+    public void SetGameOverFlag(bool flag) => _isGameOver = flag;
     public void UpdateAmmoCount(int _ammoCount)
     {
         if(_ammoCount == 0)

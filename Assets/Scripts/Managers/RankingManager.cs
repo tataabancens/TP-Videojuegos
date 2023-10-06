@@ -21,12 +21,15 @@ public class RankingManager : MonoBehaviour
     {
         if (instance != null) Destroy(gameObject);
         instance = this;
+
+        //EventsManager.instance.OnGameOver += OnGameOver;
     }
     private void Start()
     {
         if (GameManager._isGameOver)
         {
             _inputWindow.Show("Submit score", "Enter name");
+            GameManager.instance.SetGameOverFlag(false);
         }
         _db = new Database();
         DisplayDB();
@@ -50,6 +53,13 @@ public class RankingManager : MonoBehaviour
             _standings.Add(rankingElement);
         }
     }
+
+    /*private void OnGameOver(bool isVictory)
+    {
+        _inputWindow.Show("Submit score", "Enter name");
+        GameManager.instance.setGameOverFlag(false);
+        
+    }*/
     public void ChangeScene()
     {
         SceneManager.LoadScene("MainMenu");
