@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class MainMenuManager:MonoBehaviour
 {
     private enum Scenes
     {
         MainMenu,
         FutbolScene,
+        Ranking,
         GameOver
     }
     public void StartGame()
     {
         SceneManager.LoadScene(Scenes.FutbolScene.ToString());
+    }
+
+    public void Ranking()
+    {
+        SceneManager.LoadScene(Scenes.Ranking.ToString());
     }
 
     public void QuitGame()

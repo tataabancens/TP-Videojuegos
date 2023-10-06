@@ -48,9 +48,6 @@ public class GameManager : MonoBehaviour
         _isGameOver = true;
         _isVictory = isVictory;
 
-        _gameOverMessage.text = isVictory ? "VICTORIA!!" : "DERROTA";
-        _gameOverMessage.color = isVictory ? Color.cyan : Color.red;
-
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("Ranking");
     }

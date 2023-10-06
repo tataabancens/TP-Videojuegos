@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine;
 
@@ -49,7 +50,10 @@ public class RankingManager : MonoBehaviour
             _standings.Add(rankingElement);
         }
     }
-
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     private void DestroyRanking()
     {
         if(_standings.Count > 0)
