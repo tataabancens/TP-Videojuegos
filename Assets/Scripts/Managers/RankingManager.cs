@@ -7,26 +7,56 @@ public class RankingManager : MonoBehaviour
 {
     [SerializeField] private Transform _parentGrid;
     [SerializeField] private GameObject _rankingElementPrefab;
+    [SerializeField] private InputWindow _inputWindow;
 
-    private List<RankingModel> _players = new List<RankingModel>();
-    private List<string> _names;
+    private List<RankingModel> _players;
+    private List<RankingUIElement> _standings = new List<RankingUIElement>();
+
+    public static RankingManager instance;
 
     private Database _db;
+
+    private void Awake()
+    {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
     private void Start()
     {
+        _inputWindow.Show("Submit score", "Enter name");
         _db = new Database();
-        _names = new List<string> { "name1", "name2", "name3", "name4", "name5" };
-        for (int i = 0; i < 20; i++)
-        {
-            _db.AddRankingRecord(new RankingModel(i, _names[Random.Range(0, _names.Count)], Random.Range(1, 10000)));
-        }
+        DisplayDB();
+    }
+    public void InsertScore(RankingModel model)
+    {
+        _db.AddRankingRecord(model);
+        DestroyRanking();
+        DisplayDB();
+    }
+    private void DisplayDB()
+    {
         _players = _db.GetRankingRecords();
 
-        foreach(RankingModel model in _players)
+
+        for (int i = 0; i < _players.Count(); i++)
         {
-            Debug.Log(model);
+            RankingModel modelToDisplay = _players[i];
             RankingUIElement rankingElement = Instantiate(_rankingElementPrefab, _parentGrid).GetComponent<RankingUIElement>();
-            rankingElement.Init(model.ID, model.Name, model.Score);
+            rankingElement.Init(i + 1, modelToDisplay.Name, modelToDisplay.Score);
+            _standings.Add(rankingElement);
+        }
+    }
+
+    private void DestroyRanking()
+    {
+        if(_standings.Count > 0)
+        {
+            for (int i=0; i< _standings.Count;i++)
+            {
+                Destroy(_standings[i].gameObject);
+            }
+
+            _standings.Clear();
         }
     }
 }

@@ -95,7 +95,7 @@ public class Database
 
             while (reader.Read())
             {
-                RankingModel model = new RankingModel(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                RankingModel model = new RankingModel(reader.GetString(1), reader.GetInt32(2));
                 records.Add(model);
             }
 
