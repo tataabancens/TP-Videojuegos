@@ -16,15 +16,16 @@ public class Database
     {
         _connPath = $"URI=file:{Application.dataPath}/SQLiteDB/{DbName}";
         _dbConn = new SqliteConnection(_connPath);
-        try
+
+        // Check if the table exists before attempting to drop it
+        if (!CheckTableExistence(TABLE_RANKING))
         {
-            DropTable_Ranking();
+            CreateTable_Ranking();
         }
-        catch(System.Exception)
+        else
         {
-            Debug.LogWarning("There is no table to drop");
+            Debug.Log("Table already exists");
         }
-        CreateTable_Ranking();
     }
 
     #region COMMON_METHODS
@@ -79,6 +80,38 @@ public class Database
     {
         string query = $"INSERT INTO {TABLE_RANKING} (Name, Score) VALUES('{model.Name}', {model.Score})";
         PostQueryToDB(query);
+    }
+
+    private bool CheckTableExistence(string table)
+    {
+        bool tableExists = false;
+        try
+        {
+            _dbConn.Open();
+
+            IDbCommand command = _dbConn.CreateCommand();
+            string query = $"SELECT name FROM sqlite_master WHERE type='table' AND name='{table}';";
+            command.CommandText = query;
+            IDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                tableExists = true;
+            }
+
+            command.Dispose();
+            command = null;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"*** Post query ERROR ***\n{e.Message}");
+        }
+        finally
+        {
+            _dbConn.Close();
+        }
+
+        return tableExists;
     }
 
     public List<RankingModel> GetRankingRecords()
