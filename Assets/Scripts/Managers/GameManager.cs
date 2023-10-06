@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private bool _isGameOver = false;
+    [SerializeField] public static bool _isGameOver = false;
     [SerializeField] private bool _isVictory = false;
     [SerializeField] private float _timerInSeconds = 30f;
-    private int _points = 0;
+    public static int _points = 0;
     [SerializeField] private TextMeshProUGUI _gameOverMessage;
     [SerializeField]private TextMeshProUGUI _timerCounter;
     [SerializeField] private TextMeshProUGUI _pointsCounter;
