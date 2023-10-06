@@ -14,7 +14,7 @@ public class Ball : MonoBehaviour, IFreezable
     }
 
 	#region IFREEZABLE
-    public void Freeze() {
+	public void Freeze() {
         _rigidbody.angularVelocity = new Vector3(0, 0, 0);
         _rigidbody.velocity = new Vector3(0, 0, 0);
 

@@ -35,7 +35,6 @@ public class LaserBullet : MonoBehaviour, IBullet
 			
 			IFreezable freezable = other.gameObject.GetComponent<IFreezable>();
 			if (freezable != null) {
-				ball.Freeze();
 				freezable.Freeze();
 			}
 			Debug.Log("Hit a : " + other.gameObject.name);
