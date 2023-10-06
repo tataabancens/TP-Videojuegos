@@ -34,8 +34,10 @@ public class BasicBullet : MonoBehaviour, IBullet
 
 	private void OnCollisionEnter(Collision collision) {
 		ContactPoint contact = collision.GetContact(0);
-		if (collision.gameObject.CompareTag("Pelota")) {
-			collision.gameObject.GetComponent<Ball>().UnFreeze();
+
+		IFreezable freezable = collision.gameObject.GetComponent<IFreezable>();
+		if (freezable != null) {
+			freezable.UnFreeze();
 			return;
 		}
 		GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,

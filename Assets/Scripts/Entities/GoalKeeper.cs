@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class GoalKeeper : MonoBehaviour
+public class GoalKeeper : MonoBehaviour, IFreezable
 {
     [SerializeField] private Transform ball;
     private CharacterController _controller;
@@ -11,17 +11,20 @@ public class GoalKeeper : MonoBehaviour
     [SerializeField] private float _minMistanceToBall = 2.5f;
     [SerializeField] private float _maxDistanceFromStart = 10f;
     private Vector3 _startPosition;
+    private bool _freezed;
 
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         _startPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Debug.Log(_startPosition);
+        _freezed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_freezed) return;
+
         Vector3 ballDistance = ball.position - transform.position;
         Vector3 distanceFromStartVec = _startPosition - transform.position;
         float distanceFromStart = distanceFromStartVec.magnitude;
@@ -37,4 +40,14 @@ public class GoalKeeper : MonoBehaviour
             EventQueueManager.instance.AddCommand(new CmdMove(_controller, direction.normalized * moveAmount));
         }
     }
+
+    #region IFREEZABLE
+    public void Freeze() {
+        _freezed = true;
+    }
+
+    public void UnFreeze() {
+        _freezed = false;
+    }
+    #endregion
 }

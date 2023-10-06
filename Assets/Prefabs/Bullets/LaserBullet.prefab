@@ -132,3 +132,4 @@ MonoBehaviour:
   _hittableMask:
     serializedVersion: 2
     m_Bits: 273
+  _freezePrefab: {fileID: 100000, guid: 800befcc62026a34693972077c91698d, type: 3}

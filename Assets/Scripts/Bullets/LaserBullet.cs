@@ -33,9 +33,10 @@ public class LaserBullet : MonoBehaviour, IBullet
 	private void OnTriggerEnter(Collider other) {
 		if (((1 << other.gameObject.layer) & _hittableMask) != 0) {
 			
-			if (other.CompareTag("Pelota")) {
-				Ball ball = other.gameObject.GetComponent<Ball>();
+			IFreezable freezable = other.gameObject.GetComponent<IFreezable>();
+			if (freezable != null) {
 				ball.Freeze();
+				freezable.Freeze();
 			}
 			Debug.Log("Hit a : " + other.gameObject.name);
 			Die();
