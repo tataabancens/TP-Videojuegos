@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine;
 
@@ -49,6 +50,9 @@ public class GameManager : MonoBehaviour
 
         _gameOverMessage.text = isVictory ? "VICTORIA!!" : "DERROTA";
         _gameOverMessage.color = isVictory ? Color.cyan : Color.red;
+
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("Ranking");
     }
 
     public void UpdateAmmoCount(int _ammoCount)
