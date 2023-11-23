@@ -14,6 +14,7 @@ public class BasicBullet : MonoBehaviour, IBullet
 	private IGun _owner;
 
 	[SerializeField] GameObject _bulletDecal;
+	[SerializeField] private TrailRenderer _trailRenderer;
 
 	#endregion
 
@@ -21,13 +22,10 @@ public class BasicBullet : MonoBehaviour, IBullet
 	protected void Awake() {
 		_collider = GetComponent<Collider>();
 		_rigidbody = GetComponent<Rigidbody>();
+		_trailRenderer = GetComponent<TrailRenderer>();
 		Init();
 	}
 
-	protected void Start()
-	{
-		
-	}
 	private void OnEnable() {
 		Destroy(gameObject, Lifetime);
 	}
@@ -40,14 +38,14 @@ public class BasicBullet : MonoBehaviour, IBullet
 			freezable.UnFreeze();
 			return;
 		}
-		GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
-		Quaternion.LookRotation(contact.normal));
-		
-		
+		//GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
+		//Quaternion.LookRotation(contact.normal));
+
+		Destroy(gameObject);
 	}
 
 	private void OnCollisionExit(Collision collision) {
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter(Collider other)
