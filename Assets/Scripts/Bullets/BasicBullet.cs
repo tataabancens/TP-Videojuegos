@@ -9,12 +9,13 @@ public class BasicBullet : MonoBehaviour, IBullet
 	[SerializeField] private float _lifetime = 3f;
 	[SerializeField] private float _speed = 3f;
 	[SerializeField] private LayerMask _hittableMask;
+	[SerializeField] private ParticleSystem _hitVfx;
 	protected Collider _collider;
 	protected Rigidbody _rigidbody;
 	private IGun _owner;
 
 	[SerializeField] GameObject _bulletDecal;
-	[SerializeField] private TrailRenderer _trailRenderer;
+
 
 	#endregion
 
@@ -22,7 +23,6 @@ public class BasicBullet : MonoBehaviour, IBullet
 	protected void Awake() {
 		_collider = GetComponent<Collider>();
 		_rigidbody = GetComponent<Rigidbody>();
-		_trailRenderer = GetComponent<TrailRenderer>();
 		Init();
 	}
 
@@ -40,7 +40,7 @@ public class BasicBullet : MonoBehaviour, IBullet
 		}
 		//GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
 		//Quaternion.LookRotation(contact.normal));
-
+		Instantiate(_hitVfx, transform.position, Quaternion.identity).Play();
 		Destroy(gameObject);
 	}
 
