@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Pistol : Gun
 {
+	[SerializeField] private ParticleSystem _particleSystem;
 	public override void Shoot()
 	{
 		if (_currentBulletCount <= 0)
 		{
 			return;
 		}
-
+		_particleSystem.Play();
 		GameObject bullet = Instantiate(BulletPrefab, AttackPoint.position, AttackPoint.rotation, BulletContainer);
 		BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
 		basicBullet.SetOwner(this);

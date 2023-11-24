@@ -9,11 +9,13 @@ public class BasicBullet : MonoBehaviour, IBullet
 	[SerializeField] private float _lifetime = 3f;
 	[SerializeField] private float _speed = 3f;
 	[SerializeField] private LayerMask _hittableMask;
+	[SerializeField] private ParticleSystem _hitVfx;
 	protected Collider _collider;
 	protected Rigidbody _rigidbody;
 	private IGun _owner;
 
 	[SerializeField] GameObject _bulletDecal;
+
 
 	#endregion
 
@@ -24,10 +26,6 @@ public class BasicBullet : MonoBehaviour, IBullet
 		Init();
 	}
 
-	protected void Start()
-	{
-		
-	}
 	private void OnEnable() {
 		Destroy(gameObject, Lifetime);
 	}
@@ -40,14 +38,14 @@ public class BasicBullet : MonoBehaviour, IBullet
 			freezable.UnFreeze();
 			return;
 		}
-		GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
-		Quaternion.LookRotation(contact.normal));
-		
-		
+		//GameObject decalObject = GameObject.Instantiate(_bulletDecal, contact.point + contact.normal * 0.001f,
+		//Quaternion.LookRotation(contact.normal));
+		Instantiate(_hitVfx, transform.position, Quaternion.identity).Play();
+		Destroy(gameObject);
 	}
 
 	private void OnCollisionExit(Collision collision) {
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter(Collider other)

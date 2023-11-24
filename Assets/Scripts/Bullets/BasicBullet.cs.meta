@@ -3,7 +3,10 @@ guid: f9b3cc70eeb652b40a91e00c610cd31f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _vfxHit: {fileID: 7226583673155636402, guid: a2ab56839e1c9504ea9d141e95d0b16b, type: 3}
+  - _bulletDecal: {fileID: 2838843732175396869, guid: 70ef20bb6921e554ca02d007caa72084, type: 3}
+  - _trailRenderer: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

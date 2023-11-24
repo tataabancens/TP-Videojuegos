@@ -11,6 +11,7 @@ public class LaserBullet : MonoBehaviour, IBullet
 	[SerializeField] private float _lifetime = 3f;
 	[SerializeField] private float _speed = 3f;
 	[SerializeField] private LayerMask _hittableMask;
+	[SerializeField] private ParticleSystem _laserHitVfx;
 	private IGun _owner;
 	#endregion
 
@@ -38,6 +39,7 @@ public class LaserBullet : MonoBehaviour, IBullet
 				freezable.Freeze();
 			}
 			Debug.Log("Hit a : " + other.gameObject.name);
+			Instantiate(_laserHitVfx, transform.position, Quaternion.identity).Play();
 			Die();
 		}
 	}
