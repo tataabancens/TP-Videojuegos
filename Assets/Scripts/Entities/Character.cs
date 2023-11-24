@@ -65,7 +65,10 @@ public class Character : Actor
     }
 
 	private void OnEnable() {
-		_shootAction.performed += _ => EventQueueManager.instance.AddCommand(_cmdShoot);
+        _shootAction.performed += _ => {
+            EventQueueManager.instance.AddCommand(_cmdShoot);
+            EventsManager.instance.EventShoot(_currentGun.Stats.ShootAudioClip);
+        };
     }
 
 	private void OnDisable() {
@@ -83,7 +86,10 @@ public class Character : Actor
     {
 
         // Shoot Bullet
-        if (Input.GetKeyDown(_reload)) EventQueueManager.instance.AddCommand(_cmdReload);
+        if (Input.GetKeyDown(_reload)) {
+            EventQueueManager.instance.AddCommand(_cmdReload);
+            EventsManager.instance.EventReload(_currentGun.Stats.ReloadAudioClip);
+        }
 
         if (Input.GetKeyDown(_gunSlot1)) SwitchGuns(0);
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
