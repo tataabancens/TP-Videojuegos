@@ -6,6 +6,7 @@ public class GoalLine : MonoBehaviour
 {
     private Collider _collider;
     [SerializeField] private AudioSource _goalAnounce;
+    [SerializeField] private AudioSource _ballDestroyVFX;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,7 @@ public class GoalLine : MonoBehaviour
 	private void OnTriggerEnter(Collider other) {
 		if (other.CompareTag("Pelota")) {
             EventsManager.instance.EventGoal(1);
+            _ballDestroyVFX.Play();
             _goalAnounce.Play();
             Ball ball = other.gameObject.GetComponent<Ball>();
             ball.RespawnBall();

@@ -7,7 +7,6 @@ public class Ball : MonoBehaviour, IFreezable
     private Rigidbody _rigidbody;
     [SerializeField] private ParticleSystem _destructionVFX;
     [SerializeField] private AudioSource _goalExplosion;
-    [SerializeField] private Transform _vfxContainer;
     private Vector3 _initialPosition;
 
     void Start()
@@ -34,12 +33,12 @@ public class Ball : MonoBehaviour, IFreezable
         UnFreeze();
         if (_destructionVFX != null)
         {
-            ParticleSystem vfxInstance = Instantiate(_destructionVFX, transform.position, Quaternion.identity, _vfxContainer);
+            ParticleSystem vfxInstance = Instantiate(_destructionVFX, transform.position, Quaternion.identity);
             vfxInstance.Play();
-            if (_goalExplosion != null)
+            /*if (_goalExplosion != null)
             {
                 _goalExplosion.Play();
-            }
+            }*/
             Destroy(vfxInstance.gameObject, vfxInstance.main.duration);
         }
         transform.position = _initialPosition;
