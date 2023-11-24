@@ -15,6 +15,8 @@ public class SoundManager : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         EventsManager.instance.OnGameOver += OnGameOver;
+        EventsManager.instance.OnShoot += OnShoot;
+        EventsManager.instance.OnReload += OnReload;
     }
     #endregion
 
@@ -22,6 +24,14 @@ public class SoundManager : MonoBehaviour
     private void OnGameOver(bool isVictory)
     {
         _audioSource.PlayOneShot(isVictory ? _victory : _defeat);
+    }
+
+    private void OnShoot(AudioClip clip) {
+        _audioSource.PlayOneShot(clip);
+    }
+
+    private void OnReload(AudioClip clip) {
+        _audioSource.PlayOneShot(clip);
     }
     #endregion
 

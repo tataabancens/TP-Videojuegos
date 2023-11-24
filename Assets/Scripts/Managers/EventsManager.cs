@@ -27,5 +27,17 @@ public class EventsManager : MonoBehaviour
     public void EventGoal(int points) {
         if (OnGoal != null) OnGoal(points);
 	}
+
+    public event Action<AudioClip> OnShoot;
+
+    public void EventShoot(AudioClip clip) {
+        if (OnShoot != null) OnShoot(clip);
+    }
+
+    public event Action<AudioClip> OnReload;
+
+    public void EventReload(AudioClip clip) {
+        if (OnReload != null) OnReload(clip);
+    }
     #endregion
 }
