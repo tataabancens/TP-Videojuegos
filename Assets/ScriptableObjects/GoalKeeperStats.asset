@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f1b69e9f490694486dfe648ed142ec, type: 3}
-  m_Name: MachingunStats
+  m_Script: {fileID: 11500000, guid: c4f322ee581472747820fec94564d29e, type: 3}
+  m_Name: GoalKeeperStats
   m_EditorClassIdentifier: 
-  _weaponStats:
-    MagazineSize: 30
-    Damage: 10
-    _bulletPrefab: {fileID: 7767193796572049725, guid: 3e45b29178946d449bbe00149fbab7ef, type: 3}
+  _stats:
+    MaxLife: 100
+  _characterStats:
+    MovementSpeed: 10
+    RotationSpeed: 5
