@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 215e3035ad1166e459a9cf2b33e1f65a
   - enabled: 1
+    path: Assets/Scenes/LoadScene.unity
+    guid: f5f6b5dd959eb314fa011fdbed673409
+  - enabled: 1
     path: Assets/Scenes/FutbolScene.unity
     guid: f671f68b3ba7f4c41b95ce4e71aa299d
   - enabled: 1
@@ -16,5 +19,5 @@ EditorBuildSettings:
     guid: 7f80021e21451a0469391e55af465751
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
-    guid: abfc34172d8a60943aea1f66fe33037d
+    guid: d54cf79f90aba3c4391d717f33c1cf10
   m_configObjects: {}
