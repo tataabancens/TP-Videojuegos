@@ -21,7 +21,7 @@ public class EventQueueManager : MonoBehaviour
 
     private void Update()
     {
-        while (_eventQueue.Count > 0){
+        while (_eventQueue.Count > 0) {
             _eventQueue.Dequeue().Do();
         }
     }
