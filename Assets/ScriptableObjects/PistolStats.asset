@@ -16,5 +16,5 @@ MonoBehaviour:
     MagazineSize: 10
     Damage: 10
     _bulletPrefab: {fileID: 7767193796572049725, guid: 736fa33588017cc42ab2538296631944, type: 3}
-    shootAudioClip: {fileID: 8300000, guid: ea0f17fe80f0f4e4a951060bf4b1df79, type: 3}
+    shootAudioClip: {fileID: 8300000, guid: da3a39d170f214a46b4c73a2bacb6f5c, type: 3}
     reloadAudioClip: {fileID: 8300000, guid: 175cd0dd44fbc1b4eac13a3a3e2a625b, type: 3}
