@@ -5,7 +5,6 @@ using UnityEngine;
 public class CharacterAnimationController : MonoBehaviour
 {
     private Animator _animator;
-    //private Rigidbody _rb;
     private Vector3 previousPosition;
     private float _velocityZ = 0.0f;
     private float _velocityX = 0.0f;
@@ -25,7 +24,6 @@ public class CharacterAnimationController : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
-        //_rb = GetComponent<Rigidbody>();
         previousPosition = transform.position;
 
         _velocityXHash = Animator.StringToHash("velocity_x");
