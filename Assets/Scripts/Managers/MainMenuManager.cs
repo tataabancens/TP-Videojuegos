@@ -8,7 +8,7 @@ public class MainMenuManager:MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene(Scenes.FutbolScene.ToString());
+        SceneManager.LoadScene(Scenes.OpenWorld.ToString());
     }
 
     public void LoadingScene() {

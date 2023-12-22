@@ -40,7 +40,7 @@ public class InputWindow : MonoBehaviour
         if(_inputField.text.Length != 0 && _inputField.text.Length < 20)
         {
             int points = GameManager._points;
-            RankingModel model = new RankingModel(_inputField.text, points);
+            RankingModel model = new RankingModel(_inputField.text, points, GameManager.instance._stadium);
             RankingManager.instance.InsertScore(model);
             Hide();
         }

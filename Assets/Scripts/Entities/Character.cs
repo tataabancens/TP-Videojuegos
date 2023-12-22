@@ -98,7 +98,7 @@ public class Character : Actor
         if (Input.GetKeyDown(_gunSlot2)) SwitchGuns(1);
         if (Input.GetKeyDown(_gunSlot3)) SwitchGuns(2);
 
-        GameManager.instance.UpdateAmmoCount(_currentGun._currentBulletCount);
+        EventsManager.instance.EventAmmoUpdate(_currentGun._currentBulletCount);
 
         CharacterMovement();
     }

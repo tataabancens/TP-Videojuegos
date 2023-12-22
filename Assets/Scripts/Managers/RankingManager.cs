@@ -49,7 +49,7 @@ public class RankingManager : MonoBehaviour
         {
             RankingModel modelToDisplay = _players[i];
             RankingUIElement rankingElement = Instantiate(_rankingElementPrefab, _parentGrid).GetComponent<RankingUIElement>();
-            rankingElement.Init(i + 1, modelToDisplay.Name, modelToDisplay.Score);
+            rankingElement.Init(i + 1, modelToDisplay.Name, modelToDisplay.Score, modelToDisplay.Stadium);
             _standings.Add(rankingElement);
         }
     }
