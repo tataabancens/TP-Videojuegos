@@ -24,7 +24,7 @@ public class WorldManager : MonoBehaviour
     {
         EventsManager.instance.OnSceneChange += OnSceneChange;
         EventsManager.instance.OnUpdateAmmo += OnUpdateAmmo;
-        EventsManager.instance.OnGoal += OnGoal;
+        EventsManager.instance.OnTutorialEnd += OnTutorialEnd;
         EventsManager.instance.OnStadiumReach += OnStadiumReach;
         _stadiumTitle.gameObject.SetActive(false);
     }
@@ -54,9 +54,12 @@ public class WorldManager : MonoBehaviour
         SceneManager.LoadSceneAsync(scene);
     }
 
-    public void OnGoal(int points)
+    public void OnTutorialEnd(bool tutorialEnd)
     {
-        _forceField.SetActive(false);
+        if (tutorialEnd)
+        {
+            _forceField.SetActive(false);
+        }
     }
 
     public void OnStadiumReach(string stadium, bool stadiumReach)
