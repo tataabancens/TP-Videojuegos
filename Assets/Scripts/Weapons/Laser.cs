@@ -22,13 +22,4 @@ public class Laser : Gun
 
 			
 	}
-
-	public Vector3 DefineTarget() {
-		RaycastHit hit;
-		if (Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out hit, Mathf.Infinity)) {
-			return hit.point;
-		} else {
-			return _cameraTransform.position + _cameraTransform.forward * _bulletHitMissDistance;
-		}
-	}
 }
