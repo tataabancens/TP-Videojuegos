@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadScene.unity
     guid: f5f6b5dd959eb314fa011fdbed673409
   - enabled: 1
+    path: Assets/Scenes/OpenWorld.unity
+    guid: 94298f085d418aa4bb471d4a3a896e70
+  - enabled: 1
     path: Assets/Scenes/FutbolScene.unity
     guid: f671f68b3ba7f4c41b95ce4e71aa299d
   - enabled: 1
