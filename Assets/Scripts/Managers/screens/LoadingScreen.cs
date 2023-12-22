@@ -17,7 +17,7 @@ public class LoadingScreen : MonoBehaviour
     }
 
     IEnumerator LoadSceneAsync() {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(Scenes.FutbolScene.ToString());
+        AsyncOperation operation = SceneManager.LoadSceneAsync(Scenes.OpenWorld.ToString());
 
         float progress = 0;
         operation.allowSceneActivation = false;

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public static bool _isGameOver = false;
     [SerializeField] private bool _isVictory = false;
+    private bool _tutorialEnd = false;
     private bool _timerStarted = false;
     [SerializeField] private float _timerInSeconds = 30f;
     [SerializeField] public string _stadium;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
         EventsManager.instance.OnGoal += OnGoal;
         EventsManager.instance.OnUpdateAmmo += OnUpdateAmmo;
         EventsManager.instance.OnTimerStarted += OnTimerStarted;
+        EventsManager.instance.OnTutorialEnd += OnTutorialEnd;
 
         _gameOverMessage.text = string.Empty;
         _points = 0;
@@ -66,6 +68,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Ranking");
     }
 
+    private void OnTutorialEnd(bool tutorialEnd)
+    {
+        _tutorialEnd = tutorialEnd;
+    }
     private void OnTimerStarted(bool startTimer)
     {
         _timerStarted = startTimer;

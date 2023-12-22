@@ -66,5 +66,11 @@ public class EventsManager : MonoBehaviour
     {
         if (OnTimerStarted != null) OnTimerStarted(startTimer);
     }
+
+    public event Action<bool> OnTutorialEnd;
+    public void EventEndTutorial(bool endTutorial)
+    {
+        if (OnTutorialEnd != null) OnTutorialEnd(endTutorial);
+    }
     #endregion
 }
