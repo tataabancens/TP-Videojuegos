@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FutbolScene.unity
     guid: f671f68b3ba7f4c41b95ce4e71aa299d
   - enabled: 1
+    path: Assets/Scenes/FutbolScene Lvl2.unity
+    guid: b69d77e1bc7716142ad8551c80b341c2
+  - enabled: 1
     path: Assets/Scenes/Ranking.unity
     guid: 7f80021e21451a0469391e55af465751
   - enabled: 1

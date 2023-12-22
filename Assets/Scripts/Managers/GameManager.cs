@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         EventsManager.instance.OnGameOver += OnGameOver;
         EventsManager.instance.OnGoal += OnGoal;
+        EventsManager.instance.OnUpdateAmmo += OnUpdateAmmo;
 
         _gameOverMessage.text = string.Empty;
         _points = 0;
@@ -91,6 +92,10 @@ public class GameManager : MonoBehaviour
         _timerCounter.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+    private void OnUpdateAmmo(int ammo)
+    {
+        UpdateAmmoCount(ammo);
+    }
     private void OnGoal(int points) {
         _points += points;
 	}
