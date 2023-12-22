@@ -56,9 +56,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8838176122008296036}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.587, y: 0, z: 0.672}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.4, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8838176122038014437}
@@ -80,18 +80,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletHitMissDistance: 25
-  _stats: {fileID: 0}
+  _stats: {fileID: 11400000, guid: a3981d1eaf5b6f845adf4ec799904791, type: 2}
   _bulletContainer: {fileID: 0}
   _attackPoint: {fileID: 3034359586171558540}
-  _currentBulletCount: 0
+  _currentBulletCount: 100
   whatIsGrappable:
     serializedVersion: 2
     m_Bits: 4294967295
-  grappleDelayTime: 0
-  grapplePoint: {x: 0, y: 0, z: 0}
-  grappleCd: 0
+  lr: {fileID: 3486518822892972343}
+  character: {fileID: 0}
+  grappleDelayTime: 0.25
+  overShootYAxis: 2
+  grappleCd: 0.5
   grappleCdTimer: 0
-  grappling: 0
 --- !u!120 &3486518822892972343
 LineRenderer:
   m_ObjectHideFlags: 0
