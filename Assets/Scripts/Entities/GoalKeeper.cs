@@ -39,6 +39,11 @@ public class GoalKeeper : MonoBehaviour, IFreezable
             Vector3 direction = new Vector3(ballDistance.x, 0, ballDistance.z);
             EventQueueManager.instance.AddCommand(new CmdMove(_controller, direction.normalized * moveAmount));
         }
+
+        Quaternion rotToBall = Quaternion.LookRotation(ballDistance);
+
+        Quaternion tagetRotation = Quaternion.Euler(0, rotToBall.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, tagetRotation, _characterStats.RotationSpeed);
     }
 
     #region IFREEZABLE
