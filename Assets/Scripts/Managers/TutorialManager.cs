@@ -5,6 +5,7 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] popUps;
+    private bool _endTutorial = false;
     private int popUpIndex;
 
     public static TutorialManager instance;
@@ -16,76 +17,82 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         EventsManager.instance.OnGoal += OnGoal;
+        EventsManager.instance.OnTutorialEnd += OnTutorialEnd;
     }
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < popUps.Length; i++)
+        if (!_endTutorial)
         {
-            if(i == popUpIndex)
+            for (int i = 0; i < popUps.Length; i++)
             {
-                popUps[popUpIndex].SetActive(true);
+                if (i == popUpIndex)
+                {
+                    popUps[popUpIndex].SetActive(true);
+                }
+                else
+                {
+                    popUps[i].SetActive(false);
+                }
             }
-            else
+            if (popUpIndex == 0)
             {
-                popUps[i].SetActive(false);
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    popUpIndex++;
+                }
             }
-        }
-        if(popUpIndex == 0)
-        {
-            if(Input.GetKeyDown(KeyCode.F1))
+            if (popUpIndex == 1)
             {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+                {
+                    popUpIndex++;
+                }
             }
-        }
-        if (popUpIndex == 1)
-        {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+            else if (popUpIndex == 2)
             {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    popUpIndex++;
+                }
             }
-        }
-        else if(popUpIndex == 2)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
+            else if (popUpIndex == 3)
             {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    popUpIndex++;
+                }
             }
-        }
-        else if (popUpIndex == 3)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            else if (popUpIndex == 4)
             {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    popUpIndex++;
+                }
             }
-        }
-        else if (popUpIndex == 4)
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
+            else if (popUpIndex == 5)
             {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    popUpIndex++;
+                }
             }
-        }
-        else if (popUpIndex == 5)
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
+            else if (popUpIndex == 6)
             {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    popUps[popUpIndex].SetActive(false);
+                    popUpIndex = 100;
+                }
             }
-        }
-        else if (popUpIndex == 6)
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
+            else if (popUpIndex == 7)
             {
-                popUps[popUpIndex].SetActive(false);
-                popUpIndex = 100;
-            }
-        }
-        else if (popUpIndex == 7)
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                popUpIndex++;
+                if (Input.GetKeyDown(KeyCode.F1))
+                {
+                    popUps[popUpIndex].SetActive(false);
+                    popUpIndex++;
+                    EventsManager.instance.EventEndTutorial(true);
+                }
             }
         }
     }
@@ -93,5 +100,14 @@ public class TutorialManager : MonoBehaviour
     public void OnGoal(int points)
     {
         popUpIndex = 7;
+    }
+
+    public void OnTutorialEnd(bool tutorialEnd)
+    {
+        if (tutorialEnd)
+        {
+            _endTutorial = true;
+
+        }
     }
 }

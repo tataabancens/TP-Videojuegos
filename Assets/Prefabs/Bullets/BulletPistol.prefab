@@ -148,9 +148,8 @@ MonoBehaviour:
   _speed: 80
   _hittableMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 51
   _hitVfx: {fileID: 8443315704496310908, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}
-  _VFXContainer: {fileID: 5746228868053900529}
   _bulletDecal: {fileID: 2838843732175396869, guid: 70ef20bb6921e554ca02d007caa72084, type: 3}
 --- !u!54 &6582996483234957567
 Rigidbody:

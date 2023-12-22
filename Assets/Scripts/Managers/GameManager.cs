@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] public static bool _isGameOver = false;
     [SerializeField] private bool _isVictory = false;
-    private bool _tutorialEnd = false;
+    public bool _tutorialEnd = false;
     private bool _timerStarted = false;
     [SerializeField] private float _timerInSeconds = 30f;
     [SerializeField] public string _stadium;
