@@ -60,11 +60,11 @@ public class EventsManager : MonoBehaviour
         if (OnStadiumReach != null) OnStadiumReach(stadium, stadiumReach);
     }
 
-    /*public event Action<bool> OnStadiumLeave;
+    public event Action<bool> OnTimerStarted;
 
-    public void EventStadiumLeave(bool leaveStadium)
+    public void EventStartTimer(bool startTimer)
     {
-        if (OnStadiumLeave != null) OnStadiumLeave(leaveStadium);
-    }*/
+        if (OnTimerStarted != null) OnTimerStarted(startTimer);
+    }
     #endregion
 }

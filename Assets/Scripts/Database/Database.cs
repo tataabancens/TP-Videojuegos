@@ -72,13 +72,14 @@ public class Database
         string query = $"CREATE TABLE IF NOT EXISTS {TABLE_RANKING} " +
                         $"(Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         $"Name VARCHAR(50) NOT NULL," +
-                        $"Score INTEGER NOT NULL)";
+                        $"Score INTEGER NOT NULL," +
+                        $"Stadium VARCHAR(50) NOT NULL)";
         PostQueryToDB(query);
     }
 
     public void AddRankingRecord(RankingModel model)
     {
-        string query = $"INSERT INTO {TABLE_RANKING} (Name, Score) VALUES('{model.Name}', {model.Score})";
+        string query = $"INSERT INTO {TABLE_RANKING} (Name, Score, Stadium) VALUES('{model.Name}', {model.Score}, '{model.Stadium}')";
         PostQueryToDB(query);
     }
 
@@ -122,13 +123,13 @@ public class Database
             _dbConn.Open();
 
             IDbCommand command = _dbConn.CreateCommand();
-            string query = $"SELECT Id, Name, Score FROM {TABLE_RANKING} ORDER BY Score DESC";
+            string query = $"SELECT Id, Name, Score, Stadium FROM {TABLE_RANKING} ORDER BY Score DESC";
             command.CommandText = query;
             IDataReader reader =  command.ExecuteReader();
 
             while (reader.Read())
             {
-                RankingModel model = new RankingModel(reader.GetString(1), reader.GetInt32(2));
+                RankingModel model = new RankingModel(reader.GetString(1), reader.GetInt32(2), reader.GetString(3));
                 records.Add(model);
             }
 

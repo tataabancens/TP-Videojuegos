@@ -8,5 +8,6 @@ public class SceneLoad : MonoBehaviour
     private void OnTriggerEnter()
     {
         EventsManager.instance.EventSceneChange(_sceneToLoad);
+        EventsManager.instance.EventStartTimer(true);
     }
 }
