@@ -14,8 +14,11 @@ public class Character : Actor
 
     private CharacterController _controller;
     private PlayerInput _playerInput;
-    private Vector3 _playerVelocity;
+    [SerializeField] private Vector3 _playerVelocity;
     private Transform _cameraTransform;
+
+    public bool freeze;
+    public bool activeGrapple;
 	#endregion
 
 	#region GUN_COMMAND
@@ -103,17 +106,24 @@ public class Character : Actor
     private void CharacterMovement()
     {
         bool groundedPlayer = _controller.isGrounded;
+
+        if (activeGrapple && groundedPlayer) {
+            _playerVelocity = Vector3.zero;
+            activeGrapple = false;
+		}
+
         if (groundedPlayer && _playerVelocity.y < 0) {
             _playerVelocity.y = 0f;
         }
 
-
-        Vector2 moveInput = _moveAction.ReadValue<Vector2>();
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        move = move.x * _cameraTransform.right.normalized + move.z * _cameraTransform.forward.normalized;
-        move.y = 0f;
-        EventQueueManager.instance.AddCommand(new CmdMove(_controller, move * Time.deltaTime * _characterStats.MovementSpeed));
-
+        if (CanMove()) {
+            Vector2 moveInput = _moveAction.ReadValue<Vector2>();
+            Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+            move = move.x * _cameraTransform.right.normalized + move.z * _cameraTransform.forward.normalized;
+            move.y = 0f;
+            EventQueueManager.instance.AddCommand(new CmdMove(_controller, move * Time.deltaTime * _characterStats.MovementSpeed));
+        }
+        
         if (_jumpAction.triggered && groundedPlayer) {
             _playerVelocity.y += Mathf.Sqrt(_jumpHeight * -3.0f * _gravityValue);
         }
@@ -127,6 +137,10 @@ public class Character : Actor
         transform.rotation = Quaternion.Lerp(transform.rotation, tagetRotation, _characterStats.RotationSpeed);
     }
 
+    private bool CanMove() {
+        return !activeGrapple;
+	}
+
     private void SwitchGuns(int index)
     {
         foreach (Gun gun in _guns)
@@ -139,4 +153,25 @@ public class Character : Actor
         _cmdShoot = new CmdShoot(_currentGun);
         _cmdReload = new CmdReload(_currentGun);
     }
+
+    public void JumpToPosition(Vector3 targetPosition, float trajetoryHeight) {
+        _playerVelocity = CalculateJumpVelocity(transform.position, targetPosition, trajetoryHeight);
+
+        Invoke(nameof(ActivateGrapple), 0.11f);
+	}
+
+    private void ActivateGrapple() {
+        activeGrapple = true;
+    }
+
+    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endpoint, float trajectoryHeight) {
+        float displacementY = endpoint.y - startPoint.y;
+        Vector3 displacementXZ = new Vector3(endpoint.x - startPoint.x, 0f, endpoint.z - startPoint.z);
+
+        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * _gravityValue * trajectoryHeight);
+        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / _gravityValue)
+            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / _gravityValue));
+
+        return velocityXZ + velocityY;
+	}
 }
